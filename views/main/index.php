@@ -1,0 +1,2 @@
+<h1> Головна сторінка </h1>
+<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptatem explicabo alias molestiae eos perferendis laboriosam voluptatibus illo corrupti ea quos modi quo magnam, aliquid voluptas ullam sapiente? Voluptates, praesentium veritatis.</p>
