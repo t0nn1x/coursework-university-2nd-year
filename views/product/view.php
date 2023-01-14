@@ -22,8 +22,8 @@
                     <h2 class="mt-5"> Ціна: 
                     <?= $product['price'] ?><small class="text-success"> грн</small>
                     </h2>
-                    <h5>Ви хочете придбати: <input min="1" max="<?=$product['count'] ?>" type="number" name="count" id="count" class="form-control"></h5>
-                    <button class="btn btn-dark btn-rounded mr-1" data-toggle="tooltip" title="" data-original-title="Add to cart">
+                    <h5>Ви хочете придбати: <input min="1" value="1" max="<?=$product['count'] ?>" type="number" name="count" id="count" class="form-control"></h5>
+                    <button id="Add-to-cart" class="btn btn-dark btn-rounded mr-1" data-toggle="tooltip" title="" data-original-title="Add to cart">
                         <i class="fa fa-shopping-cart"></i>
                     </button>
                     <button class="btn btn-dark btn-rounded" data-toggle="tooltip" title="" data-original-title="Add to wishlist">
@@ -39,4 +39,33 @@
         </div>
     </div>
 </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script defer>
 
+    let btn = document.getElementById('Add-to-cart');
+    if(btn!=null)
+    {
+        btn.addEventListener('click', function () {
+            let count = document.getElementById('count').value;
+            let id = <?= $product['id'] ?>;
+            $.ajax({
+                url: '/product/view/<?=$product['id'] ?>',
+                type: 'POST',
+                data: {
+                    Ajax: true,
+                    id: id,
+                    count: count
+                },
+                success: function (reply) {
+                    let data = JSON.parse(reply);
+                    if (data.status === 'ok') {
+                        alert('Товар успішно додано до кошика');
+                    } else {
+                        alert('Товар не додано до кошика');
+                    }
+                }
+            });
+        });
+    }
+
+</script>

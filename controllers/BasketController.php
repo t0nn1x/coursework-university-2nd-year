@@ -13,4 +13,11 @@ class BasketController extends \core\Controller
             'basket' => $basket
         ]);
     }
+
+    public function deleteAction($params)
+    {
+        $product_id = intval($params[0]);
+        Basket::removeProduct($product_id);
+        return $this->redirect('/basket/index');
+    }
 }

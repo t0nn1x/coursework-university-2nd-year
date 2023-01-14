@@ -2,6 +2,7 @@
 
 namespace controllers;
 
+use models\Basket;
 use models\Product;
 use models\Category;
 use models\User;
@@ -66,6 +67,14 @@ class ProductController extends \core\Controller
     {
         $id = intval($params[0]);
         $product = Product::getProductById($id);
+
+        if(isset($_POST['Ajax']))
+        {
+            Basket::addProduct($_POST['id'], $_POST['count']);
+            exit(json_encode(['status' => 'ok']));
+        }
+
+
         return $this->render (null, [
             'product' => $product
         ]);
