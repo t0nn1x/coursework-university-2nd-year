@@ -44,6 +44,7 @@ class BasketController extends \core\Controller
     public function paymentAction()
     {
         $basket = Basket::getProductsInBasket();
+        $errors = [];
         if(isset($_POST['pay']) && Core::getInstance()->requestMethod === 'POST')
         {
             if (trim($_POST['name']) == '') {
@@ -72,7 +73,8 @@ class BasketController extends \core\Controller
         }
 
         return $this->render(null, [
-            'basket' => $basket
+            'basket' => $basket,
+            'errors' => $errors
         ]);
     }
 }

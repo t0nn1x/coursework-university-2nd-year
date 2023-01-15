@@ -16,10 +16,13 @@
                     </div>
                     <div class="thumbnail_images">
                         <ul id="thumbnail">
+                            <?php if(!empty($product['photos'])): ?>
                             <?php foreach ($product['photos'] as $photo) : ?>
                                 <li><img onclick="changeImage(this)" src="<?=$photo['photo']?>" width="70"></li>
                             <?php endforeach; ?>
-
+                            <?php else: ?>
+                                <li><img onclick="changeImage(this)" src="/static/images/no-image.jpg" width="70"></li>
+                            <?php endif; ?>
                         </ul>
                     </div>
                 </div>
