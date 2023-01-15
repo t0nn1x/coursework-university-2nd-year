@@ -24,11 +24,48 @@ class Product
         Core::getInstance()->db->insert(self::$tableName, $row);
     }
 
+    public static function updatePhoto($id, $photoId, $photo)
+    {
+        Core::getInstance()->db->update('product_photo', ['photo' => $photo], [
+            'product_id' => $id,
+            'id' => $photoId
+        ]);
+    }
+
+
+    public static function addPhoto($id, $photo)
+    {
+        Core::getInstance()->db->insert('product_photo', [
+            'product_id' => $id,
+            'photo' => $photo
+        ]);
+    }
+
+    public static function getIdLastProduct()
+    {
+        $row = Core::getInstance()->db->select(self::$tableName, 'max(id) as id');
+        if (count($row) > 0)
+            return $row[0]['id'];
+        else
+            return null;
+    }
+
     public static function deleteProduct($id)
     {
         Core::getInstance()->db->delete(self::$tableName, [
             'id' => $id
         ]);
+    }
+
+    public static function getProductPhotos($id)
+    {
+        $rows = Core::getInstance()->db->select('product_photo', '*', [
+            'product_id' => $id
+        ]);
+        if(count($rows) > 0)
+            return $rows;
+        else
+            return null;
     }
 
     public static function updateProduct($id, $newRow)

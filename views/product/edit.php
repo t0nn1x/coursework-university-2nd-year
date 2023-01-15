@@ -9,6 +9,9 @@
  * @var array $basket
  * @var array $basketItem
  * @var array $basketItems
+ * @var array $product
+ * @var array $model
+ * @var array $photos
  */
 
 use models\User;
@@ -54,21 +57,23 @@ use models\User;
         <?php endif; ?>
     </div>
 
-    <div class="col-2">
-        <?php $filePath = 'files/product/' . $row['photo']; ?>
-        <?php if (is_file($filePath)) : ?>
-            <img class="img-thumbnail card-img-top" src="/<?= $filePath ?>" alt="">
-        <?php else : ?>
-            <img class="img-thumbnail card-img-top" src="/static/images/no-image.jpg" alt="">
+    <?php if (!empty($photos)) : $i=0?>
+        <?php if (!empty($errors['photo'])) : ?>
+            <div class="message error">
+                <?= $errors['photo'] ?>
+            </div>
         <?php endif; ?>
-    </div>
 
-    <div class="mb-3">
-        <label for="file" class="form-label">Файл з фотографією для товару (замінити фото)</label>
-        <input type="file" class="form-control" name="file" id="file" accept="image/jpeg" />
-        <?php if (!empty($errors['file'])) : ?>
-            <div class="form-text text-danger"> <?= $errors['file']; ?></div>
-        <?php endif; ?>
+        <?php foreach ($photos as $photo) : ?>
+            <div class="mb-3">
+                <label class="form-label">Фото товару</label>
+                <input value="<?=$photo['photo']?>" type="url" class="form-control" name="photo<?=$i?>" >
+            </div>
+            <?php $i++; ?>
+        <?php endforeach; ?>
+    <?php endif; ?>
+    <div class="text-center mb-4">
+        <button type="submit" class="btn btn-primary">Змініити товар</button>
     </div>
 
     <button type="submit" class="btn btn-primary">Зберегти</button>

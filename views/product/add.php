@@ -74,10 +74,28 @@
             <div class="form-text text-danger"> <?= $errors['visible']; ?></div>
         <?php endif; ?>
 
-    <div class="mb-3">
-        <label for="file" class="form-label">Файли з фотографією для товару</label>
-        <input multiple type="file" class="form-control" name="file" id="file" accept="image/jpeg" />
-    </div>
+        <div class="mb-3">
+            <label for="count" class="form-label">Кількість фото:</label>
+            <select id="count"  class="form-select" name="photoCount">
+                <option selected value="-1">Виберіть кількість фото</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+            </select>
+            <?php if (!empty($errors['photoCount'])) : ?>
+                <div class="message error">
+                    <?= $errors['photoCount'] ?>
+                </div>
+            <?php endif; ?>
+        </div>
+        <div id="photoBlock">
+            <?php if (!empty($errors['photoBlock'])) : ?>
+                <div class="message error">
+                    <?= $errors['photoBlock'] ?>
+                </div>
+            <?php endif; ?>
+        </div>
     <div>
         <button class="btn btn-primary">Додати</button>
     </div>
@@ -94,4 +112,22 @@
                 console.error(error);
             });
     }
+
+    let photoCount = document.querySelector('select[name="photoCount"]');
+    photoCount.addEventListener('change', function () {
+        let count = this.value;
+        let photoBlock = document.querySelector('#photoBlock');
+        let content;
+        if (count > 0 && count < 5) {
+            content = '';
+            for (let i = 0; i < count; i++) {
+                content += '<div class="mb-3"><label class="form-label">Фото товару</label><input type="url" class="form-control" name="photo'+`${i}`+'" >'
+                    +'</div>';
+            }
+        }
+        else {
+            content = '';
+        }
+        photoBlock.innerHTML = content;
+    });
 </script>

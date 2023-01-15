@@ -12,7 +12,11 @@ class ProductController extends \core\Controller
 {
     public function indexAction()
     {
-        return $this->render();
+        $products = Product::getProducts();
+
+        return $this->render(null, [
+            'products' => $products
+        ]);
     }
 
     public function addAction($params)
@@ -43,8 +47,24 @@ class ProductController extends \core\Controller
         if ($_POST['quantity'] < 0) {
             $errors['quantity'] = 'Кількість товару не може бути відємною';
         }
+            if ($_POST['photoCount'] > 0 and $_POST['photoCount'] < 5)
+            {
+                for ($i = 0; $i < $_POST['photoCount']; $i++)
+                {
+                    if (empty($_POST['photo' . $i]))
+                        $errors['photoBlock'] = 'Фото товарів задано не вірно';
+                }
+            }
         if(empty($errors)){
             Product::addProduct($_POST);
+            $product_id = Product::getIdLastProduct();
+            if ($_POST['photoCount'] > 0 and $_POST['photoCount'] < 5)
+            {
+                for ($i = 0; $i < $_POST['photoCount']; $i++)
+                {
+                    Product::addPhoto($product_id, $_POST['photo' . $i]);
+                }
+            }
             return $this->redirect('/product/index');
         } else {
             $model = $_POST;
@@ -84,6 +104,8 @@ class ProductController extends \core\Controller
     {
         $id = intval($params[0]);
         $product = Product::getProductById($id);
+        $photos = Product::getProductPhotos($id);
+
         $categories = Category::getCategories();
         if (Core::getInstance()->requestMethod === 'POST') {
             $_POST['name'] = trim($_POST['name']);
@@ -114,14 +136,17 @@ class ProductController extends \core\Controller
                 return $this->render(null, [
                     'errors' => $errors,
                     'model' => $model,
-                    'categories' => $categories
+                    'categories' => $categories,
+                    'product' => $product,
+                    'photos' => $photos
                 ]);
             }
         }
 
         return $this->render(null, [
             'product' => $product,
-            'categories' => $categories
+            'categories' => $categories,
+            'photos' => $photos
         ]);
     }
 
