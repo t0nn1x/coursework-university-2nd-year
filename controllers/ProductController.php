@@ -13,6 +13,9 @@ class ProductController extends \core\Controller
     public function indexAction()
     {
         $products = Product::getProducts();
+        foreach ($products as &$product) {
+            $product['photos'] = Product::getProductPhotos($product['id']);
+        }
 
         return $this->render(null, [
             'products' => $products
@@ -87,6 +90,8 @@ class ProductController extends \core\Controller
     {
         $id = intval($params[0]);
         $product = Product::getProductById($id);
+
+        $product['photos'] = Product::getProductPhotos($product['id']);
 
         if(isset($_POST['Ajax']))
         {

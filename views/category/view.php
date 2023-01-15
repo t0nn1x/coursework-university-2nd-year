@@ -5,7 +5,6 @@
  * @var array $products
  * @var array $wishlist
  */
-
 use models\User;
 ?>
 
@@ -23,10 +22,10 @@ use models\User;
             <div class="col">
                 <a href="/product/view/<?= $row['id'] ?>" class="card-link">
                     <div class="card">
-                        <?php $filePath = 'files/product/' . $row['photo']; ?>
+
                         <div class="imageFormat">
-                            <?php if (is_file($filePath)) : ?>
-                                <img src="/<?= $filePath ?>" class="card-img-top" alt="">
+                            <?php if (!empty($row['photos'])) : ?>
+                                <img src="<?= $row['photos'][0]['photo'] ?>" class="card-img-top" alt="">
                             <?php else : ?>
                                 <img src="/static/images/no-image.jpg" class="card-img-top" alt="">
                             <?php endif; ?>

@@ -11,9 +11,33 @@
             <h3 class="card-title"><?= $product['name'] ?></h3>
             <h6 class="card-subtitle"><?= $product['short_description'] ?></h6>
             <div class="row">
-                <div class="col-lg-5 col-md-5 col-sm-6">
-                    <div class="white-box text-center"><?php $filePath = 'files/product/' . $product['photo']; ?> 430x600</div>     
+
+
+                <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        <?php if(!empty($product['photos'])) :?>
+                        <?php foreach($product['photos'] as $item) :?>
+                        <div class="carousel-item active"   >
+                            <img src="<?= $item['photo']?>"  class="d-block w-100" alt="...">
+                        </div>
+                        <?php endforeach;?>
+                        <?else:?>
+                            <div class="carousel-item active">
+                                <img src="/static/images/no-image.jpg" class="d-block w-100" alt="...">
+                            </div>
+                        <?endif;?>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
                 </div>
+
+
                 <div class="col-lg-7 col-md-7 col-sm-6">
         
                     <h4 class="box-title mt-5">Опис товару: </h4>

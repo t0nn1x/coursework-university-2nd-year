@@ -117,6 +117,11 @@ class CategoryController extends \core\Controller
         $id = intval($params[0]);
         $category = Category::getCategoryById($id);
         $products = Product::getProductsInCategoryId($id);
+
+        foreach ($products as &$product) {
+            $product['photos'] = Product::getProductPhotos($product['id']);
+        }
+
         return $this->render(null, [
             'category' => $category,
             'products' => $products

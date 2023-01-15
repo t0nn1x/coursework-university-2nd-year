@@ -6,12 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="740aabdb-9149-4430-9da0-266bd9d3d89f" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/CategoryController.php" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/CategoryController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controllers/ProductController.php" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/ProductController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/Product.php" beforeDir="false" afterPath="$PROJECT_DIR$/models/Product.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/views/category/view.php" beforeDir="false" afterPath="$PROJECT_DIR$/views/category/view.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/product/add.php" beforeDir="false" afterPath="$PROJECT_DIR$/views/product/add.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/product/edit.php" beforeDir="false" afterPath="$PROJECT_DIR$/views/product/edit.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/views/product/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/views/product/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/product/view.php" beforeDir="false" afterPath="$PROJECT_DIR$/views/product/view.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,7 +55,7 @@
       <updated>1673692079981</updated>
       <workItem from="1673692081297" duration="2888000" />
       <workItem from="1673795217350" duration="1272000" />
-      <workItem from="1673796551481" duration="1651000" />
+      <workItem from="1673796551481" duration="3723000" />
     </task>
     <servers />
   </component>
