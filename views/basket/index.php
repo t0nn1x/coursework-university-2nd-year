@@ -33,6 +33,7 @@
 
                         <?php
                         $index = 1;
+                        if (!empty($basket)):
                         foreach ($basket['products'] as $row) : ?>
                             <tr>
 
@@ -57,7 +58,13 @@
                                 <td class="text-center align-middle px-0"><a href="/basket/delete/<?= $row['product']['id'] ?>" class="shop-tooltip close float-none text-danger" title="" data-original-title="Remove">×</a></td>
                             </tr>
                         <? $index++;
-                        endforeach; ?>
+                        endforeach;
+                        else: ?>
+                            <tr>
+                                <td colspan="6" class="text-center font-weight-semibold align-middle p-4">Кошик порожній</td>
+                            </tr>
+                         <? endif;?>
+
 
 
 
