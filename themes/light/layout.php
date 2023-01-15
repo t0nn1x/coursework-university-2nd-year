@@ -71,6 +71,9 @@ else
         <symbol id="search" viewBox="0 0 16 16">
             <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
         </symbol>
+        <symbol id="order" viewBox="0 0 16 16">
+            <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-5 6s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zM11 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5zm.5 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1h-4zm2 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1h-2zm0 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1h-2z"/>
+        </symbol>
 
     </svg>
     <header>
@@ -93,6 +96,17 @@ else
                                 Головна
                             </a>
                         </li>
+                        <?php if(User::isUserAuthenticated()): ?>
+                        <li>
+                            <a href="/order" class="nav-link text-white">
+                                <svg  width="24" height="24"  class="bi d-block mx-auto mb-1">
+                                    <use xlink:href="#order" />
+                                </svg>
+                                Замовлення
+                            </a>
+                        </li>
+                        <?php endif; ?>
+
 
                         <li>
                             <a href="/category" class="nav-link text-white">

@@ -36,7 +36,7 @@ class UserController extends Controller
                 ]);
             } else {
                 User::addUser($_POST['login'], $_POST['password'], $_POST['lastname'], $_POST['firstname']);
-                return $this->renderView('register-success');
+                return $this->redirect('/user/login');
             }
         } else
             return $this->render();
