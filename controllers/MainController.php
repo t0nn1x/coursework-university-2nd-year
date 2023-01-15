@@ -9,11 +9,11 @@ use core\Core;
  * 
  */
 
-class MainController
+class MainController extends Controller
 {
     public function indexAction()
     {
-        // return $this->render();
+        return $this->render();
     }
 
     public function errorAction($code)

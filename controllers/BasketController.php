@@ -14,8 +14,8 @@ class BasketController extends \core\Controller
         $photos = [];
 
         if(!empty($basket)) {
-            foreach ($basket as $product) {
-                $photos[] = Product::getProductPhotos($product['product_id']);
+            foreach ($basket['products'] as $product) {
+                $photos[] = Product::getPhotoById($product['product']['id']);
             }
         }
 
