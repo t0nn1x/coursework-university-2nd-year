@@ -5,7 +5,9 @@
 use models\User;
 
 ?>
-<h2>Список категорій</h2>
+<h2 class="h3 mb-3 fw-normal text-center">Список категорій</h2>
+
+
 <div class="row row-cols-1 row-cols-md-4 g-4 categories-list">
     <?php foreach ($rows as $row) : ?>
         <div class="col">

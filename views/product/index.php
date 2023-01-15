@@ -1,13 +1,32 @@
 <?php
 
+/** 
+ * @var array $rows 
+ * @var array $categories
+ * @var array $errors
+ * @var array $row
+ * @var array $category
+ * @var array $basket
+ * @var array $basketItem
+ * @var array $basketItems
+ */
+
 use models\User;
 
 ?>
 
-<h1 class="h3 mb-3 fw-normal text-center">Список товарів</h1>
+
+<h2 class="h3 mb-3 fw-normal text-center">Список товарів</h2>
 
 <?php if (User::isAdmin()) : ?>
-    <div class="mb-3">
-        <a href="/product/add" class="btn btn-success">Додати товар</a>
-    </div>
+    <a href="/product/add" class="btn btn-primary mb-3">Додати товар</a>
 <?php endif; ?>
+
+
+
+
+
+
+
+
+

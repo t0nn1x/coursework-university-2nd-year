@@ -20,4 +20,18 @@ class BasketController extends \core\Controller
         Basket::removeProduct($product_id);
         return $this->redirect('/basket/index');
     }
+
+    public function clearAction()
+    {
+        Basket::clearBasket();
+        return $this->redirect('/basket/index');
+    }
+
+    public function paymentAction()
+    {
+        $basket = Basket::getProductsInBasket();
+        return $this->render(null, [
+            'basket' => $basket
+        ]);
+    }
 }

@@ -8,8 +8,8 @@
 ?>
 
 
-<link rel="stylesheet" href="/views/basket/css/style.css">
 <div class="container px-3 my-5 clearfix">
+
     <!-- Shopping cart table -->
     <div class="card">
         <div class="card-header">
@@ -48,13 +48,13 @@
                                         </div>
                                     </div>
                                 </td>
-                                <td id="productPrice<?=$row['product']['id']?>" class="text-right font-weight-semibold align-middle p-4"><?= $row['product']['price'] ?> ₴</td>
-                                <td class="text-right font-weight-semibold align-middle p-4"> <input id="count" data-id="<?=$row['product']['id']?>" type="number" min="1" max="<?=$row['product']['count']?>" value="<?= $row['count']?>" class="form-control"> од.</td>
+                                <td id="productPrice<?= $row['product']['id'] ?>" class="text-right font-weight-semibold align-middle p-4"><?= $row['product']['price'] ?> ₴</td>
+                                <td class="text-right font-weight-semibold align-middle p-4"> <input id="count" data-id="<?= $row['product']['id'] ?>" type="number" min="1" max="<?= $row['product']['count'] ?>" value="<?= $row['count'] ?>" class="form-control"> од.</td>
                                 <script>
-                                    
+
                                 </script>
-                                <td id="product<?=$row['product']['id']?>" class="totalProductPrice text-right font-weight-semibold align-middle p-4"><?= $row['product']['price'] * $row['count'] ?> ₴</td>
-                                <td class="text-center align-middle px-0"><a href="/basket/delete/<?=$row['product']['id']?>" class="shop-tooltip close float-none text-danger" title="" data-original-title="Remove">×</a></td>
+                                <td id="product<?= $row['product']['id'] ?>" class="totalProductPrice text-right font-weight-semibold align-middle p-4"><?= $row['product']['price'] * $row['count'] ?> ₴</td>
+                                <td class="text-center align-middle px-0"><a href="/basket/delete/<?= $row['product']['id'] ?>" class="shop-tooltip close float-none text-danger" title="" data-original-title="Remove">×</a></td>
                             </tr>
                         <? $index++;
                         endforeach; ?>
@@ -81,8 +81,17 @@
 
             <div class="float-right">
                 <button type="button" class="btn btn-lg btn-success md-btn-flat mt-2 mr-3" onclick="location.href='/product'">Назад до магазину</button>
-                <button type="button" class="btn btn-lg btn-primary mt-2">Оплата</button>
+                <!-- <a href="" class="btn btn-lg btn-primary mt-2">Оплата</a> -->
+                <!-- При натисканні на кнопку "Оплата" викликається paymentAction -->
+                <a href="/basket/payment" class="btn btn-lg btn-primary mt-2">Оформити замовлення</a>
+
+                <!-- Додати кнопку "Очистити корзину" з підтвердженням видалення у вигляді алерта -->
+
+                <a href="/basket/clear" class="btn btn-lg btn-danger mt-2">Очистити корзину</a>
             </div>
+
+
+
 
         </div>
     </div>
@@ -90,18 +99,17 @@
 
 <script>
     let count = document.querySelectorAll('#count');
-    for (let i =0; i <count.length; i++  )
-    {
-        count[i].addEventListener('change', function(){
+    for (let i = 0; i < count.length; i++) {
+        count[i].addEventListener('change', function() {
             let prodId = this.getAttribute('data-id');
             let prodCount = this.value;
             let prodPrice;
-            prodPrice = Number(document.querySelector('#productPrice'+prodId).innerHTML.replace('₴', ''));
+            prodPrice = Number(document.querySelector('#productPrice' + prodId).innerHTML.replace('₴', ''));
             let totalPrice = prodCount * prodPrice;
 
-            document.getElementById('product'+prodId).innerHTML = totalPrice.toString() + ' ₴';
+            document.getElementById('product' + prodId).innerHTML = totalPrice.toString() + ' ₴';
             let total = 0;
-            document.querySelectorAll('.totalProductPrice').forEach(function (item) {
+            document.querySelectorAll('.totalProductPrice').forEach(function(item) {
                 total += Number(item.innerHTML.replace('₴', ''));
             });
             document.getElementById('superTotalPrice').innerHTML = total.toString() + ' ₴';

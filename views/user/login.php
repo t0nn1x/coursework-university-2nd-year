@@ -5,6 +5,8 @@ core\Core::getInstance()->pageParams['title'] = 'Вхід на сайт';
 ?>
 
 <h1 class="h3 mb-3 fw-normal text-center">Вхід на сайт</h1>
+
+
 <main class="form-signin w-100 m-auto">
     <form action="" method="post">
         <?php if (!empty($error)) : ?>
@@ -26,3 +28,5 @@ core\Core::getInstance()->pageParams['title'] = 'Вхід на сайт';
         <button class="w-100 btn btn-lg btn-primary" type="submit">Увійти</button>
     </form>
 </main>
+
+

@@ -107,4 +107,10 @@ class User
         $user = self::getCurrentAuthenticatedUser();
         return $user['access_level'] == 10;
     }
+
+    public static function isGuest()
+    {
+        $user = self::getCurrentAuthenticatedUser();
+        return $user['access_level'] == 1;
+    }
 }

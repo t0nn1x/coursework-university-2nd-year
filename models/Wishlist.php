@@ -2,31 +2,31 @@
 
 namespace models;
 
-class Basket 
+class Wishlist
 {
     public static function addProduct($product_id, $count = 1)
     {
-        if(!is_array($_SESSION['basket'])){
-            $_SESSION['basket'] = [];
+        if(!is_array($_SESSION['wishlist'])){
+            $_SESSION['wishlist'] = [];
         }
-        $_SESSION['basket'][$product_id] += $count;
+        $_SESSION['wishlist'][$product_id] += $count;
     }
 
     public static function removeProduct($product_id)
     {
-        if(!is_array($_SESSION['basket'])){
-            $_SESSION['basket'] = [];
+        if(!is_array($_SESSION['wishlist'])){
+            $_SESSION['wishlist'] = [];
         }
-        unset($_SESSION['basket'][$product_id]);
+        unset($_SESSION['wishlist'][$product_id]);
     }
 
-    public static function getProductsInBasket()
+    public static function getProductsInWishlist()
     {
-        if(is_array($_SESSION['basket'])){
+        if(is_array($_SESSION['wishlist'])){
             $result = [];
             $products = [];
             $totalPrice = 0;
-            foreach($_SESSION['basket'] as $product_id => $count){
+            foreach($_SESSION['wishlist'] as $product_id => $count){
                 $product = Product::getProductById($product_id);
                 $totalPrice += $product['price'] * $count;
                 $products [] = ['product' => $product, 'count' => $count];
@@ -36,10 +36,5 @@ class Basket
             return $result;
         }
         return null;
-    }
-
-    public static function clearBasket()
-    {
-        unset($_SESSION['basket']);
     }
 }

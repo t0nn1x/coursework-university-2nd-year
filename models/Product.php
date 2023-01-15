@@ -60,6 +60,12 @@ class Product
         }
     }
 
+    public static function getProducts()
+    {
+        $rows = Core::getInstance()->db->select(self::$tableName, '*');
+        return $rows;
+    }
+
     public static function getProductsInCategoryId($category_id)
     {
         $rows = Core::getInstance()->db->select(self::$tableName, '*', [
@@ -72,5 +78,19 @@ class Product
     {
         $row = self::getProductById($id);
         return !empty($row);
+    }
+
+    public static function searchProducts($search)
+    {
+        $rows = Core::getInstance()->db->select(self::$tableName, '*', [
+            'name[~]' => $search
+        ]);
+        return $rows;
+    }
+
+    public static function getAllProducts()
+    {
+        $rows = Core::getInstance()->db->select(self::$tableName, '*');
+        return $rows;
     }
 }
