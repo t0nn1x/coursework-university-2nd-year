@@ -13,7 +13,7 @@ class MainController extends Controller
 {
     public function indexAction()
     {
-        return $this->render();
+        return $this->redirect('/category');
     }
 
     public function errorAction($code)

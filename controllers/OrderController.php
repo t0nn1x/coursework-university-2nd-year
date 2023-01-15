@@ -5,12 +5,19 @@ namespace controllers;
 use core\Controller;
 use models\Order;
 use models\Product;
+use models\User;
 
 class OrderController extends Controller
 {
     public function indexAction()
     {
-        $orders = Order::getOrdersByUser($_SESSION['user']['id']);
+        if(User::isAdmin())
+        {
+            $orders = Order::getOrders();
+        }
+        else
+            $orders = Order::getOrdersByUser($_SESSION['user']['id']);
+
         return $this->render(null, [
             'orders' => $orders
         ]);
@@ -18,6 +25,7 @@ class OrderController extends Controller
 
     public function viewAction($params)
     {
+
         $id = intval($params[0]);
         $product_ids = Order::getProductsByOrderId($id);
         $products = [];

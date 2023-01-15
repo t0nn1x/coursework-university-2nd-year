@@ -14,6 +14,12 @@ class Order
         return $rows;
     }
 
+    public static function getOrders()
+    {
+        $rows = Core::getInstance()->db->select('orders', '*');
+        return $rows;
+    }
+
     public static function getProductsByOrderId($id)
     {
         $rows = Core::getInstance()->db->select('order_product', '*', [
