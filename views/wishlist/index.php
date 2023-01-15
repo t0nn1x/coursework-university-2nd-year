@@ -2,7 +2,6 @@
 
 /**
  * @var array $products
- * @var array $totalPrice
  * @var \models\User $user
  */
 
@@ -26,23 +25,21 @@ use models\User;
         <div class="row row-cols-1 row-cols-md-4 g-4 categories-list">
             <?php foreach ($products as $product) : ?>
                 <div class="col">
-                    <a href="/product/view/<?= $product['product']['id'] ?>" class="card-link">
+                    <a href="/product/view/<?= $product['id'] ?>" class="card-link">
                         <div class="card">
-                            <?php $filePath = 'files/product/' . $product['product']['photo']; ?>
                             <div class="imageFormat">
-                                <?php if (is_file($filePath)) : ?>
-                                    <img src="/<?= $filePath ?>" class="card-img-top" alt="">
+                                <?php if (!empty($product['photos'])) : ?>
+                                    <img src="<?=$product['photos'][0]['photo'] ?>" class="card-img-top" alt="">
                                 <?php else : ?>
                                     <img src="/static/images/no-image.jpg" class="card-img-top" alt="">
                                 <?php endif; ?>
                             </div>
                             <div class="card-body">
-                                <h5 class="card-title"><?= $product['product']['name'] ?></h5>
-                                <p class="card-text"><?= $product['product']['price'] ?> грн.</p>
-                                <p class="card-text">Кількість: <?= $product['count'] ?></p>
+                                <h5 class="card-title"><?= $product['name'] ?></h5>
+                                <p class="card-text"><?= $product['price'] ?> грн.</p>
                             </div>
                             <div class="card-body">
-                                <a href="/wishlist/remove/<?= $product['product']['id'] ?>" class="btn btn-danger">Видалити зі списку бажань</a>
+                                <a href="/wishlist/remove/<?= $product['id'] ?>" class="btn btn-danger">Видалити зі списку бажань</a>
                             </div>
                         </div>
                     </a>

@@ -2,8 +2,9 @@
 
 /**
  * @var array $basket
- * 
+ * @var array $photos
  */
+
 
 ?>
 
@@ -40,7 +41,13 @@
                                 <td class="text-right font-weight-semibold align-middle p-4"><?= $index ?></td>
                                 <td class="p-4">
                                     <div class="media align-items-center">
-                                        <img src="сюди можна вставити посилання на картинку" class="d-block ui-w-40 ui-bordered mr-4" alt="">
+                                        <img src="<?php
+                                        foreach ($photos as $photo) {
+                                            if ($photo['product_id'] == $row['product']['id']) {
+                                                echo $photo['photo'];
+                                                break;
+                                            }
+                                        } ?>" class="d-block ui-w-40 ui-bordered mr-4 img-size-small" alt="">
                                         <div class="media-body">
                                             <a href="" class="d-block text-dark"><?= $row['product']['name'] ?> </a>
                                             <small>

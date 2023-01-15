@@ -2,31 +2,35 @@
 
 namespace controllers;
 
+use models\Product;
 use models\Wishlist;
 
 class WishlistController extends \core\Controller
 {
-    public function addAction($product_id)
+    public function removeAction($params)
     {
-        Wishlist::addProduct($product_id);
-        header('Location: /wishlist');
+        $product_id = intval($params[0]);
+        Wishlist::deleteFromWishlist($product_id);
+        return $this->redirect('/wishlist/index');
     }
 
-    public function removeAction($product_id)
-    {
-        Wishlist::removeProduct($product_id);
-        header('Location: /wishlist');
-    }
 
     public function indexAction()
     {
         $wishlist = Wishlist::getProductsInWishlist();
-        $products = $wishlist['products'];
-        $totalPrice = $wishlist['totalPrice'];
+        $products = [];
+        if (!empty($wishlist)) {
+            foreach ($wishlist as $product) {
+                $products[] = Product::getProductById($product['product_id']);
+            }
+            foreach ($products as &$product) {
+                $product['photos'] = Product::getProductPhotos($product['id']);
+            }
+        }
+
         return $this->render(null, [
-            'products' => $products,
-            'totalPrice' => $totalPrice
+            'products' => $products
         ]);
-        return true;
+
     }
 }

@@ -7,6 +7,7 @@ use models\Product;
 use models\Category;
 use models\User;
 use core\Core;
+use models\Wishlist;
 
 class ProductController extends \core\Controller
 {
@@ -97,6 +98,20 @@ class ProductController extends \core\Controller
         {
             Basket::addProduct($_POST['id'], $_POST['count']);
             exit(json_encode(['status' => 'ok']));
+        }
+
+        if(isset($_POST['AjaxWish']))
+        {
+            if(Wishlist::isProductInWishlist($_POST['pid']))
+            {
+                exit(json_encode(['status' => 'fail']));
+            }
+            else
+            {
+                Wishlist::addToWishList($_POST['pid']);
+                exit(json_encode(['status' => 'ok']));
+            }
+
         }
 
 

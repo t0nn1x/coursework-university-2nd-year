@@ -3,14 +3,22 @@
 namespace controllers;
 
 use models\Basket;
+use models\Product;
+use models\User;
 
 class BasketController extends \core\Controller
 {
     public function indexAction()
     {
         $basket = Basket::getProductsInBasket();
+        $photos = [];
+        foreach ($basket['products'] as $product) {
+            $photos[] = Product::getPhotoById($product['product']['id']);
+        }
+
         return $this->render(null, [
-            'basket' => $basket
+            'basket' => $basket,
+            'photos' => $photos
         ]);
     }
 

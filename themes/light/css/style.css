@@ -34,3 +34,11 @@
     left: 0;
 }
 
+.img-size {
+    width: 600px;
+    height: 430px;
+}
+.img-size-small {
+    width: 200px;
+    height: 150px;
+}

@@ -57,6 +57,17 @@ class Product
         ]);
     }
 
+    public static function getPhotoById($id)
+    {
+        $row = Core::getInstance()->db->select('product_photo', '*', [
+            'product_id' => $id
+        ]);
+        if (count($row) > 0)
+            return $row[0];
+        else
+            return null;
+    }
+
     public static function getProductPhotos($id)
     {
         $rows = Core::getInstance()->db->select('product_photo', '*', [

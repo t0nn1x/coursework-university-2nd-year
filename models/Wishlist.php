@@ -2,39 +2,49 @@
 
 namespace models;
 
+use core\Core;
+
 class Wishlist
 {
-    public static function addProduct($product_id, $count = 1)
+    public static function addToWishList($id)
     {
-        if(!is_array($_SESSION['wishlist'])){
-            $_SESSION['wishlist'] = [];
-        }
-        $_SESSION['wishlist'][$product_id] += $count;
+        Core::getInstance()->db->insert('wishlist', [
+            'user_id' => $_SESSION['user']['id'],
+            'product_id' => $id
+        ]);
     }
-
-    public static function removeProduct($product_id)
-    {
-        if(!is_array($_SESSION['wishlist'])){
-            $_SESSION['wishlist'] = [];
-        }
-        unset($_SESSION['wishlist'][$product_id]);
-    }
-
     public static function getProductsInWishlist()
     {
-        if(is_array($_SESSION['wishlist'])){
-            $result = [];
-            $products = [];
-            $totalPrice = 0;
-            foreach($_SESSION['wishlist'] as $product_id => $count){
-                $product = Product::getProductById($product_id);
-                $totalPrice += $product['price'] * $count;
-                $products [] = ['product' => $product, 'count' => $count];
-            }
-            $result['products'] = $products;
-            $result['totalPrice'] = $totalPrice;
-            return $result;
-        }
-        return null;
+        $rows = Core::getInstance()->db->select('wishlist', '*', [
+            'user_id' => $_SESSION['user']['id']
+        ]);
+        if (empty($rows))
+            return null;
+        else
+            return $rows;
+    }
+    public static function deleteFromWishlist($id)
+    {
+        Core::getInstance()->db->delete('wishlist', [
+            'user_id' => $_SESSION['user']['id'],
+            'product_id' => $id
+        ]);
+    }
+    public static function deleteAllFromWishlist()
+    {
+        Core::getInstance()->db->delete('wishlist', [
+            'user_id' => $_SESSION['user']['id']
+        ]);
+    }
+    public static function isProductInWishlist($id)
+    {
+        $rows = Core::getInstance()->db->select('wishlist', '*', [
+            'user_id' => $_SESSION['user']['id'],
+            'product_id' => $id
+        ]);
+        if (empty($rows))
+            return false;
+        else
+            return true;
     }
 }

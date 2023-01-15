@@ -13,12 +13,12 @@
             <div class="row">
 
 
-                <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
-                    <div class="carousel-inner">
+                <div id="carouselExampleControls" class="carousel slide img-size" data-bs-ride="carousel">
+                    <div class="carousel-inner ">
                         <?php if(!empty($product['photos'])) :?>
                         <?php foreach($product['photos'] as $item) :?>
-                        <div class="carousel-item active"   >
-                            <img src="<?= $item['photo']?>"  class="d-block w-100" alt="...">
+                        <div class="carousel-item active img-size"   >
+                            <img src="<?= $item['photo']?>" class="d-block w-100 img-size" alt="...">
                         </div>
                         <?php endforeach;?>
                         <?else:?>
@@ -50,7 +50,7 @@
                     <button id="Add-to-cart" class="btn btn-dark btn-rounded mr-1" data-toggle="tooltip" title="" data-original-title="Add to cart">
                         <i class="fa fa-shopping-cart"></i>
                     </button>
-                    <button class="btn btn-dark btn-rounded" data-toggle="tooltip" title="" data-original-title="Add to wishlist">
+                    <button id="add-to-wish" class="btn btn-dark btn-rounded" data-toggle="tooltip" title="" data-original-title="Add to wishlist">
                         <i class="fa fa-heart"></i>
                     </button>
                     <button class="btn btn-success btn-rounded">Миттєва покупка</button>
@@ -86,6 +86,29 @@
                         alert('Товар успішно додано до кошика');
                     } else {
                         alert('Товар не додано до кошика');
+                    }
+                }
+            });
+        });
+    }
+    let btn2 = document.getElementById('add-to-wish');
+    if(btn2!=null)
+    {
+        btn2.addEventListener('click', function () {
+            let id = <?= $product['id'] ?>;
+            $.ajax({
+                url: '/product/view/<?=$product['id'] ?>',
+                type: 'POST',
+                data: {
+                    AjaxWish: true,
+                    pid: id,
+                },
+                success: function (reply) {
+                    let data = JSON.parse(reply);
+                    if (data.status === 'ok') {
+                        alert('Товар успішно додано до вибраного');
+                    } else {
+                        alert('Товар вже є в вибраному');
                     }
                 }
             });
