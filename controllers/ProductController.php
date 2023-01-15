@@ -119,6 +119,12 @@ class ProductController extends \core\Controller
             exit(json_encode(['status' => 'ok']));
         }
 
+        if(isset($_POST['AjaxNow']))
+        {
+            Basket::addProduct($_POST['id']);
+            exit(json_encode(['status' => 'success']));
+        }
+
         if(isset($_POST['AjaxWish']))
         {
             if(Wishlist::isProductInWishlist($_POST['pid']))

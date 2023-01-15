@@ -44,7 +44,7 @@
                     <div class="mt-5"> <span class="fw-bold">На складі: <?= $product['count'] ?> шт.</span>
 
                     </div>
-                    <div class="buttons d-flex flex-row mt-5 gap-3"> <button class="btn btn-outline-dark">Buy Now</button> <button id="Add-to-cart" class="btn btn-dark">Add to Basket</button> <button id="add-to-wish" class="btn btn-outline-dark">Add to Wishlist</button>
+                    <div class="buttons d-flex flex-row mt-5 gap-3"> <button id="buy-now" class="btn btn-outline-dark">Buy Now</button> <button id="Add-to-cart" class="btn btn-dark">Add to Basket</button> <button id="add-to-wish" class="btn btn-outline-dark">Add to Wishlist</button>
                     </div>
                 </div>
             </div>
@@ -249,6 +249,29 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <script defer>
+
+    let btnNow = document.getElementById('buy-now');
+    if(btnNow != null)
+    {
+        btnNow.addEventListener('click', function () {
+            let count = document.getElementById('count').value;
+            let id = <?= $product['id'] ?>;
+            $.ajax({
+                url: '/product/view/<?=$product['id'] ?>',
+                type: 'POST',
+                data: {id: id, count: count, AjaxNow: true},
+                success: function (reply) {
+                    let res = JSON.parse(reply);
+                    if (res.status === 'success') {
+                        location.href = '/basket/payment';
+                    } else {
+                        alert('Помилка!');
+                    }
+                },
+
+            });
+        });
+    }
 
     let btn = document.getElementById('Add-to-cart');
     if(btn!=null)
