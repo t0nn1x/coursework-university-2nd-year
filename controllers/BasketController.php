@@ -12,9 +12,13 @@ class BasketController extends \core\Controller
     {
         $basket = Basket::getProductsInBasket();
         $photos = [];
-        foreach ($basket['products'] as $product) {
-            $photos[] = Product::getPhotoById($product['product']['id']);
+
+        if(!empty($basket)) {
+            foreach ($basket as $product) {
+                $photos[] = Product::getProductPhotos($product['product_id']);
+            }
         }
+
 
         return $this->render(null, [
             'basket' => $basket,
