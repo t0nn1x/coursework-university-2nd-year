@@ -4,6 +4,14 @@ namespace models;
 
 class Basket 
 {
+
+    public static function clearBasket()
+    {
+        if(is_array($_SESSION['basket'])) {
+            unset($_SESSION['basket']);
+        }
+    }
+
     public static function addProduct($product_id, $count = 1)
     {
         if(!is_array($_SESSION['basket'])){
@@ -36,10 +44,5 @@ class Basket
             return $result;
         }
         return null;
-    }
-
-    public static function clearBasket()
-    {
-        unset($_SESSION['basket']);
     }
 }

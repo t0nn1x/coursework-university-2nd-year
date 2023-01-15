@@ -14,9 +14,28 @@ class ProductController extends \core\Controller
     public function indexAction()
     {
         $products = Product::getProducts();
-        foreach ($products as &$product) {
-            $product['photos'] = Product::getProductPhotos($product['id']);
+        if(!empty($products))
+        {
+            foreach ($products as &$product) {
+                $product['photos'] = Product::getProductPhotos($product['id']);
+            }
+
         }
+
+        if(isset($_GET['search']))
+        {
+            $products = Product::getProductsBySearch($_GET['search']);
+            if(!empty($products))
+            {
+                foreach ($products as &$product) {
+                    $product['photos'] = Product::getProductPhotos($product['id']);
+                }
+            }
+            return $this->render(null, [
+                'products' => $products
+            ]);
+        }
+
 
         return $this->render(null, [
             'products' => $products

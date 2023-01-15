@@ -57,6 +57,11 @@ class Product
         ]);
     }
 
+    public static function getProductsBySearch($condition)
+    {
+        return Core::getInstance()->db->selectWithLike($condition);
+    }
+
     public static function getPhotoById($id)
     {
         $row = Core::getInstance()->db->select('product_photo', '*', [

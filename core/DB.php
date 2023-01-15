@@ -94,4 +94,11 @@ class DB
         $res = $this->pdo->prepare("DELETE FROM {$tableName} {$wherePartString}");
         $res->execute($conditionArray);
     }
+
+    public function selectWithLike($name)
+    {
+        $res = $this->pdo->prepare("SELECT * FROM `product` WHERE `name` LIKE :name");
+        $res->execute(['name' => "%{$name}%"]);
+        return $res->fetchAll(\PDO::FETCH_ASSOC);
+    }
 }

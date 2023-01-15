@@ -57,7 +57,7 @@
                                     </div>
                                 </td>
                                 <td id="productPrice<?= $row['product']['id'] ?>" class="text-right font-weight-semibold align-middle p-4"><?= $row['product']['price'] ?> ₴</td>
-                                <td class="text-right font-weight-semibold align-middle p-4"> <input id="count" data-id="<?= $row['product']['id'] ?>" type="number" min="1" max="<?= $row['product']['count'] ?>" value="<?= $row['count'] ?>" class="form-control"> од.</td>
+                                <td class="text-right font-weight-semibold align-middle p-4"> <label id="count" > <?= $row['count'] ?></label></td>
                                 <script>
 
                                 </script>
@@ -111,22 +111,3 @@
     </div>
 </div>
 
-<script>
-    let count = document.querySelectorAll('#count');
-    for (let i = 0; i < count.length; i++) {
-        count[i].addEventListener('change', function() {
-            let prodId = this.getAttribute('data-id');
-            let prodCount = this.value;
-            let prodPrice;
-            prodPrice = Number(document.querySelector('#productPrice' + prodId).innerHTML.replace('₴', ''));
-            let totalPrice = prodCount * prodPrice;
-
-            document.getElementById('product' + prodId).innerHTML = totalPrice.toString() + ' ₴';
-            let total = 0;
-            document.querySelectorAll('.totalProductPrice').forEach(function(item) {
-                total += Number(item.innerHTML.replace('₴', ''));
-            });
-            document.getElementById('superTotalPrice').innerHTML = total.toString() + ' ₴';
-        })
-    }
-</script>

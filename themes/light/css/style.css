@@ -42,3 +42,22 @@
     width: 200px;
     height: 150px;
 }
+
+.input-block{
+    display: block;
+    margin-bottom: 10px;
+    width: 400px;
+}
+.search {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+}
+
+.search-btn
+{
+    margin-left: 3px;
+    width: 38px;
+    height: 38px;
+}
