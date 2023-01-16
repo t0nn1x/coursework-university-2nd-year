@@ -40,11 +40,17 @@
                         <label for="count">Кількість:</label>
                         <input type="number" id="count" min="1" value="1" max="<?= $product['count'] ?>">
                     </div>
+                    <div class="mt-3">
+                        <label for="count">Рейтинг: <?php if(!empty($product['rating'])){echo round($product['rating']);}else echo 'не визначений';?></label>
+                    </div>
+                    <div id="rating" class="mt-3">
+                    </div>
 
                     <div class="mt-5"> <span class="fw-bold">На складі: <?= $product['count'] ?> шт.</span>
 
                     </div>
                     <div class="buttons d-flex flex-row mt-5 gap-3"> <button id="buy-now" class="btn btn-outline-dark">Buy Now</button> <button id="Add-to-cart" class="btn btn-dark">Add to Basket</button> <button id="add-to-wish" class="btn btn-outline-dark">Add to Wishlist</button>
+                       <?php if(\models\User::isUserAuthenticated()){echo '<button id="rate" class="btn btn-outline-dark">Оцінити</button>';}?>
                     </div>
                 </div>
             </div>
@@ -53,6 +59,40 @@
 </div>
 
 <script>
+    let rate = document.getElementById('rate');
+    rate.addEventListener('click', function () {
+        let rating = document.getElementById('rating');
+        rating.innerHTML = '<input type="number" id="rating-input" min="1" value="1" max="5">' +
+            '<button id="rating-button" class="btn btn-outline-dark">Оцінити</button>';
+        let ratingButton = document.getElementById('rating-button');
+        ratingButton.addEventListener('click', function () {
+            let ratingInput = document.getElementById('rating-input');
+            let rating = ratingInput.value;
+            let productId = <?=$product['id']?>;
+            $.ajax({
+                url: '/product/view/<?=$product['id'] ?>',
+                type: 'POST',
+                data: {
+                    AjaxRate: true,
+                    product_id: productId,
+                    rating: rating
+                },
+                success: function (reply) {
+                    let data = JSON.parse(reply);
+                    if (data.status === 'ok') {
+                        alert('Товар успішно оцінено');
+                        location.reload();
+                    } else {
+                            alert('Помилка оцінки товару');
+                        location.reload();
+                    }
+                }
+            });
+
+
+        })
+    });
+
     function changeImage(element) {
 
         var main_prodcut_image = document.getElementById('main_product_image');

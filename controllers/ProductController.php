@@ -112,11 +112,29 @@ class ProductController extends \core\Controller
         $product = Product::getProductById($id);
 
         $product['photos'] = Product::getProductPhotos($product['id']);
+        $product['rating'] = Product::getRating($product['id']);
 
         if(isset($_POST['Ajax']))
         {
             Basket::addProduct($_POST['id'], $_POST['count']);
             exit(json_encode(['status' => 'ok']));
+        }
+
+        if(isset($_POST['AjaxRate']))
+        {
+            if($_POST['rating'] < 0 or $_POST['rating'] > 5)
+            {
+                exit(json_encode(['status' => 'error']));
+            }
+            if(!Product::checkRating($_POST['product_id'])) {
+                Product::addRating($_POST['product_id'], $_POST['rating']);
+                exit(json_encode(['status' => 'ok']));
+            }
+            else
+            {
+                Product::updateRating($_POST['product_id'], $_POST['rating']);
+                exit(json_encode(['status' => 'ok']));
+            }
         }
 
         if(isset($_POST['AjaxNow']))

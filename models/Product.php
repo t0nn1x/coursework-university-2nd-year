@@ -57,6 +57,46 @@ class Product
         ]);
     }
 
+    public static function addRating($product_id, $rating)
+    {
+        Core::getInstance()->db->insert('reviews', [
+            'product_id' => $product_id,
+            'rating' => $rating,
+            'user_id' => $_SESSION['user']['id']
+        ]);
+    }
+
+    public static function checkRating($product_id)
+    {
+        $row = Core::getInstance()->db->select('reviews', 'id', [
+            'product_id' => $product_id,
+            'user_id' => $_SESSION['user']['id']
+        ]);
+        if (count($row) > 0)
+            return true;
+        else
+            return false;
+    }
+
+    public static function updateRating($product_id, $rating)
+    {
+        Core::getInstance()->db->update('reviews', ['rating' => $rating], [
+            'product_id' => $product_id,
+            'user_id' => $_SESSION['user']['id']
+        ]);
+    }
+
+    public static function getRating($product_id)
+    {
+        $row = Core::getInstance()->db->select('reviews', 'avg(rating) as rating', [
+            'product_id' => $product_id
+        ]);
+        if (count($row) > 0)
+            return $row[0]['rating'];
+        else
+            return null;
+    }
+
     public static function getProductsBySearch($condition)
     {
         return Core::getInstance()->db->selectWithLike($condition);

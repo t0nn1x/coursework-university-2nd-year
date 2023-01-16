@@ -79,6 +79,7 @@ class DB
         $valuesListString = implode(', ', $paramsArray);
         $res = $this->pdo->prepare("INSERT INTO {$tableName} ($fieldsListString) VALUES($valuesListString)");
         $res->execute($newRowArray);
+
     }
     /**
      * Виконання запиту на видалення даних з вказаної талиці БД
